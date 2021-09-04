@@ -5,11 +5,15 @@ jobs:
     runs-on: macos-latest
 
     steps:
-      - name: Run a one-line script
+      - name: git clone
         run: git clone https://github.com/Marcono1234/git-file-length-test .
+        # Ignore exit code; see https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions#exit-codes-and-error-action-preference
+        shell: bash {0}
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - run: git status
+        
+      - name: git restore
+        # Run the restore command suggested by Git
+        run: git restore --source=HEAD :/
+        
+      - run: git status
